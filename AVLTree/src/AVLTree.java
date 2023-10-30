@@ -1,12 +1,14 @@
 public class AVLTree<T extends Comparable<T>>  {
 	private Node<T> root;
-	
+	private int size;
 	public AVLTree() {
 		this.root = null;
+		size = 0;
 	}
 	
 	public AVLTree(Node<T> root) {
 		this.root = root;
+		size = 1;
 	}
 	
 	public void insert(T value) {
@@ -16,10 +18,12 @@ public class AVLTree<T extends Comparable<T>>  {
 	private Node<T> insertHelper(Node<T> root, T value){
 		if(root == null) {
 			root = new Node<T>(value);
+			size++;
+			return root;
 		}
 		int compareValue = compare(value, root.value);
 		
-		if(compareValue < 0) {
+		if(compareValue <= 0) {
 			root.left = insertHelper(root.left, value);
 		}
 		else if(compareValue > 0) {
@@ -93,6 +97,7 @@ public class AVLTree<T extends Comparable<T>>  {
 	
 	private Node<T> deleteHelper(Node<T> root, T value) {
 		if(root == null) {
+			size = size - 1;
 			return null;
 		}
 		if(compare(value, root.value) < 0) {
@@ -133,5 +138,17 @@ public class AVLTree<T extends Comparable<T>>  {
 	
 	private int compare(T insertValue, T nodeValue) {
 		return insertValue.compareTo(nodeValue);
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public T getLeft() {
+		return root.left.value;
+	}
+	
+	public T getRight() {
+		return root.right.value;
 	}
 }
