@@ -1,8 +1,9 @@
 class Node<T> {
-	private T value;
-	private Node<T> right;
-	private Node<T> left;
-	private Node<T> parent;
+	public T value;
+	public Node<T> right;
+	public Node<T> left;
+	public Node<T> parent;
+	public int weight;
 	
 	public Node(T item){
 		this.value = item;
@@ -10,30 +11,5 @@ class Node<T> {
 		this.left = null;
 		this.parent = null;
 	}
-	
-	public Node<T> getRight() {
-		return right;
-	}
-	
-	public Node<T> getLeft() {
-		return left;
-	}
-	
-	public Node<T> getParent() {
-		return parent;
-	}
-	
-	public void setLeft(Node<T> node) {
-		this.left = node;
-	}
-	
-	public void setRight(Node<T> node) {
-		this.right = node;
-	}
-	
-	public void setParent(Node<T> node) {
-		this.parent = node;
-	}
-	
 	
 }
