@@ -1,3 +1,5 @@
+import java.util.Queue;
+
 public class AVLTree<T extends Comparable<T>>  {
 	private Node<T> root;
 	private int size;
@@ -151,4 +153,12 @@ public class AVLTree<T extends Comparable<T>>  {
 	public T getRight() {
 		return root.right.value;
 	}
+	
+	
+	
+	public void printTree() {
+		
+	}
+	
+	
 }
