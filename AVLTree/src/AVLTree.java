@@ -25,17 +25,125 @@ public class AVLTree<T extends Comparable<T>>  {
 		}
 		int compareValue = compare(value, root.value);
 		
-		if(compareValue <= 0) {
+		if(compareValue < 0) {
 			root.left = insertHelper(root.left, value);
+			root.weight += -1; // More left heavy
 		}
 		else if(compareValue > 0) {
 			 root.right = insertHelper(root.right, value);
+			 root.weight += 1; // More right heavy
 		}
 		
-		// TODO:
-		// 		Balancing/Rotating and updating the weight
+		// Check if rotate is required
+		if (root.weight >= 2) {
+			rotateLeft(root);
+		} else if (root.weight <= -2) {
+			rotateRight(root);
+		}
 		
 		return root;
+	}
+	
+	// Rotates the tree from root to the left
+	private void rotateLeft(Node<T> root) {
+		T replaceWith = pullFromRight(root.right);
+		T toReplace = root.value;
+		root.value = replaceWith;
+		pushToLeft(root.left, toReplace);
+	}
+	
+	// Rotates the tree from the root to the right
+	private void rotateRight(Node<T> root) {
+		T replaceWith = pullFromLeft(root.left);
+		T toReplace = root.value;
+		root.value = replaceWith;
+		pushToRight(root.right, toReplace);
+	}
+	
+	// Pulls items from the right towards the root
+	private T pullFromRight(Node<T> curr) {
+		T replacement = null;
+		if (curr.right != null) {
+			replacement = pullFromRight(curr.right);
+		} else {
+			if (curr.left != null) { // If at end and there is a node to the left, do a swap
+				replacement = curr.left.value;
+				curr.left = null;
+			} else {
+				replacement = curr.value;
+			}
+			return replacement;
+		}
+		
+		if (curr.right.value == replacement) { // Get rid of the edge
+			curr.right = null;
+		}
+		
+		// Replace the current with the new guy
+		T nextReplacement = curr.value;
+		curr.value = replacement;
+		
+		// Recalc the weight. Should only do this a couple times on average due to how the tree is structured
+		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
+		
+		return nextReplacement;
+	}
+	
+	// Pushes items to the right away from the root
+	private void pushToRight(Node<T> curr, T replaceWith) {
+		T toReplace = curr.value;
+		curr.value = replaceWith;
+		
+		if (curr.right != null) {
+			pushToRight(curr.right, toReplace);
+		} else {
+			curr.right = new Node<T>(toReplace);
+		}
+		
+		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
+	}
+	
+	// Pulls items from the left of the root
+	private T pullFromLeft(Node<T> curr) {
+		T replacement = null;
+		if (curr.left != null) {
+			replacement = pullFromRight(curr.left);
+		} else {
+			if (curr.left != null) { // If at end and there is a node to the right, do a swap
+				replacement = curr.right.value;
+				curr.right = null;
+			} else {
+				replacement = curr.value;
+			}
+			return replacement;
+		}
+		
+		if (curr.left.value == replacement) { // Get rid of the edge
+			curr.left = null;
+		}
+		
+		// Replace the current with the new guy
+		T nextReplacement = curr.value;
+		curr.value = replacement;
+		
+		// Recalc the weight. Should only do this a couple times on average due to how the tree is structured
+		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
+		
+		return nextReplacement;
+	}
+	
+	// Pushes values down the left hand side of the tree from the root
+	private void pushToLeft(Node<T> curr, T replaceWith) {
+		T toReplace = curr.value;
+		curr.value = replaceWith;
+		
+		if (curr.left != null) {
+			pushToLeft(curr.left, toReplace);
+		} else {
+			curr.left = new Node<T>(toReplace);
+		}
+		
+		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
 	}
 	
 	// searching for a specific value
@@ -154,7 +262,11 @@ public class AVLTree<T extends Comparable<T>>  {
 		return root.right.value;
 	}
 	
-	
+	public int heightOfTree(Node<T> curr) { // Is there any fucking trick I can use to make this run better?
+		int rightHeight = (curr.right != null) ? heightOfTree(curr.right) : -1;
+		int leftHeight = (curr.left != null) ? heightOfTree(curr.left) : -1;
+		return (rightHeight > leftHeight) ? rightHeight + 1 : leftHeight + 1;
+	}
 	
 	public void printTree() {
 		

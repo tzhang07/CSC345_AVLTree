@@ -10,6 +10,7 @@ class Node<T> {
 		this.right = null;
 		this.left = null;
 		this.parent = null;
+		this.weight = 0;
 	}
 	
 }

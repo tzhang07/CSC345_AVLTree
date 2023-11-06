@@ -6,21 +6,21 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 class AVLTreeTest {
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	
+	private HashSet<Integer> numbers = new HashSet<>();
 	
 	@Test
 	void heightTest() {
-		fail("Not yet implemented");
+		fail("Not yet completed");
 		
+		numbers.clear();
 		AVLTree<Integer> currTree = new AVLTree<>();
 		Random rand = new Random();
 		for (int i = 0; i < 100; i++) {
 			int randomNum = rand.nextInt(-1000, 1000);
-			currTree.insert(randomNum);
+			if (numbers.add(randomNum)) {
+				currTree.insert(randomNum);
+			}
 		}
 		
 		/*int heightDiff = currTree.rightHeight() - currTree.leftHeight()
@@ -31,7 +31,7 @@ class AVLTreeTest {
 	@Test
 	void searchTest() {
 		Random rand = new Random();
-		HashSet<Integer> numbers = new HashSet<>();
+		numbers.clear();
 		AVLTree<Integer> currTree = new AVLTree<>();
 		for (int i = 0; i < 50; i++) {
 			int toAdd = rand.nextInt(0, 100);
@@ -48,7 +48,7 @@ class AVLTreeTest {
 	@Test
 	void deleteTest() {
 		Random rand = new Random();
-		HashSet<Integer> numbers = new HashSet<>();
+		numbers.clear();
 		AVLTree<Integer> currTree = new AVLTree<>();
 		for (int i = 0; i < 50; i++) {
 			int toAdd = rand.nextInt(-100, 100);
@@ -65,9 +65,12 @@ class AVLTreeTest {
 	
 	@Test
 	void checkMinAndMax() {
+		numbers.clear();
 		AVLTree<Integer> currTree = new AVLTree<>();
 		for (int i = 0; i < 100; i++) {
-			currTree.insert(i);
+			if (numbers.add(i)) {
+				currTree.insert(i);
+			}
 		}
 		
 		assertTrue(currTree.getMin() == 0);
