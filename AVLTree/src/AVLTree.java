@@ -25,125 +25,99 @@ public class AVLTree<T extends Comparable<T>>  {
 		}
 		int compareValue = compare(value, root.value);
 		
-		if(compareValue < 0) {
+		if(compareValue < 0) { // Go left
 			root.left = insertHelper(root.left, value);
 			root.weight += -1; // More left heavy
 		}
-		else if(compareValue > 0) {
+		else { // Go right
 			 root.right = insertHelper(root.right, value);
 			 root.weight += 1; // More right heavy
 		}
 		
-		// Check if rotate is required
+		// Check if rotate is required as you come back up
 		if (root.weight >= 2) {
-			rotateLeft(root);
+			root = rotateLeft(root);
 		} else if (root.weight <= -2) {
-			rotateRight(root);
+			root = rotateRight(root);
 		}
 		
 		return root;
 	}
 	
-	// Rotates the tree from root to the left
-	private void rotateLeft(Node<T> root) {
-		T replaceWith = pullFromRight(root.right);
-		T toReplace = root.value;
-		root.value = replaceWith;
-		pushToLeft(root.left, toReplace);
-	}
+	/*
+	 * Rotate Notes - Nathan Mette
+	 * Lets look at rotation again. All I really need to do is take the two nodes and swap them around, specifically if that
+	 * wont cause any errors, such as the rotation causing the new root to have two left children
+	 * 
+	 * When root.weight == 2:
+	 *  - if root.right.weight >= 0 -> leftRotation
+	 *  - if root.right.weight == -1 -> rightRotation on root.right, leftRotation on root
+	 *  
+	 *  When root.weight == -2:
+	 *  - if root.left.weight <= 0 -> rightRotation
+	 *  - if root.left.weight == 1 -> leftRotation on root.left, rightRotation on root
+	 */
 	
-	// Rotates the tree from the root to the right
-	private void rotateRight(Node<T> root) {
-		T replaceWith = pullFromLeft(root.left);
-		T toReplace = root.value;
-		root.value = replaceWith;
-		pushToRight(root.right, toReplace);
-	}
-	
-	// Pulls items from the right towards the root
-	private T pullFromRight(Node<T> curr) {
-		T replacement = null;
-		if (curr.right != null) {
-			replacement = pullFromRight(curr.right);
+	/* Rotates the tree from root to the left
+	 * Returns the new root.
+	 * *****NOTE: REMEMBER TO SET THE PARENT OF THE RETURN OF THIS METHOD TO THE PARENT OF THE NODE YOU PASSED*****
+	 * Assumes Node passed is the root of the tree being rotated.
+	 */
+	private Node<T> rotateLeft(Node<T> root) {
+		if (root.right == null) {
+			return null; // I shouldn't reach this
+		}
+		
+		if (root.right.weight == -1) {
+			root.right = rotateRight(root.right); // Only in the event that the right needs to be rotated to keep balance too
+		}
+		
+		Node<T> origin = root;
+		Node<T> newOrigin = root.right;
+		
+		origin.right = newOrigin.left;
+		newOrigin.left = origin;
+		
+		if (newOrigin.weight == 0) { // If the new origin was balanced before, it isn't anymore
+			origin.weight = -1;
+			newOrigin.weight = 1;
 		} else {
-			if (curr.left != null) { // If at end and there is a node to the left, do a swap
-				replacement = curr.left.value;
-				curr.left = null;
-			} else {
-				replacement = curr.value;
-			}
-			return replacement;
+			origin.weight = 0;
+			newOrigin.weight = 0;
 		}
 		
-		if (curr.right.value == replacement) { // Get rid of the edge
-			curr.right = null;
-		}
-		
-		// Replace the current with the new guy
-		T nextReplacement = curr.value;
-		curr.value = replacement;
-		
-		// Recalc the weight. Should only do this a couple times on average due to how the tree is structured
-		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
-		
-		return nextReplacement;
+		return newOrigin;
 	}
 	
-	// Pushes items to the right away from the root
-	private void pushToRight(Node<T> curr, T replaceWith) {
-		T toReplace = curr.value;
-		curr.value = replaceWith;
+	/* Rotates the tree from root to the right
+	 * Returns the new root.
+	 * *****NOTE: REMEMBER TO SET THE PARENT OF THE RETURN OF THIS METHOD TO THE PARENT OF THE NODE YOU PASSED*****
+	 * Assumes Node passed is the root of the tree being rotated.
+	 */
+	private Node<T> rotateRight(Node<T> root) {
+		if (root.left == null) {
+			return null; // I shouldn't reach this
+		}
 		
-		if (curr.right != null) {
-			pushToRight(curr.right, toReplace);
+		if (root.left.weight == 1) {
+			root.left = rotateLeft(root.left); // Only in the event that the left needs to be rotated to keep balance too
+		}
+		
+		Node<T> origin = root;
+		Node<T> newOrigin = root.left;
+		
+		origin.left = newOrigin.right;
+		newOrigin.right = origin;
+		
+		if (newOrigin.weight == 0) { // If the new origin was balanced before, it isn't anymore
+			origin.weight = -1;
+			newOrigin.weight = 1;
 		} else {
-			curr.right = new Node<T>(toReplace);
+			origin.weight = 0;
+			newOrigin.weight = 0;
 		}
 		
-		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
-	}
-	
-	// Pulls items from the left of the root
-	private T pullFromLeft(Node<T> curr) {
-		T replacement = null;
-		if (curr.left != null) {
-			replacement = pullFromRight(curr.left);
-		} else {
-			if (curr.left != null) { // If at end and there is a node to the right, do a swap
-				replacement = curr.right.value;
-				curr.right = null;
-			} else {
-				replacement = curr.value;
-			}
-			return replacement;
-		}
-		
-		if (curr.left.value == replacement) { // Get rid of the edge
-			curr.left = null;
-		}
-		
-		// Replace the current with the new guy
-		T nextReplacement = curr.value;
-		curr.value = replacement;
-		
-		// Recalc the weight. Should only do this a couple times on average due to how the tree is structured
-		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
-		
-		return nextReplacement;
-	}
-	
-	// Pushes values down the left hand side of the tree from the root
-	private void pushToLeft(Node<T> curr, T replaceWith) {
-		T toReplace = curr.value;
-		curr.value = replaceWith;
-		
-		if (curr.left != null) {
-			pushToLeft(curr.left, toReplace);
-		} else {
-			curr.left = new Node<T>(toReplace);
-		}
-		
-		curr.weight = heightOfTree(curr.right) - heightOfTree(curr.left);
+		return newOrigin;
 	}
 	
 	// searching for a specific value
