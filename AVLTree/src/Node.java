@@ -11,5 +11,6 @@ class Node<T> {
 		this.left = null;
 		this.parent = null;
 	}
+
 	
 }

@@ -95,37 +95,55 @@ public class AVLTree<T extends Comparable<T>> {
 
 	private Node<T> deleteHelper(Node<T> root, T value) {
 		if (root == null) {
-			size = size - 1;
-			return null;
+			return root;
 		}
+
 		if (compare(value, root.value) < 0) {
 			root.left = deleteHelper(root.left, value);
+			return root;
 		} else if (compare(value, root.value) > 0) {
 			root.right = deleteHelper(root.right, value);
-		} else {
-			if (root.left == null) {
-				return root.right;
-			} else if (root.right == null) {
-				return root.left;
-			}
+			return root;
+		}
 
-			root.value = minOfSubtree(root.right);
+		// Case 1: When node is a leaf
+		if (root.left == null && root.right == null) {
+			root = null;
+			return root;
+		}
+
+		// Case 2: When the node has 1 children
+		if (root.left == null) {
+			root = root.right;
+			size = size - 1;
+			return root;
+		} else if (root.right == null) {
+			root = root.left;
+			size = size - 1;
+			return root;
+		} else {
+
+			// Case 3: When Node has both children
+			root.value = findNodeToReplace(root.right).value;
+
 			root.right = deleteHelper(root.right, root.value);
+			size = size - 1;
+			return root;
 		}
 
 		// TODO:
 		// Balancing/Rotating and updating the weight
 
-		return root;
+//		return root;
 	}
 
-	private T minOfSubtree(Node<T> root) {
-		T minValue = root.value;
+	private Node<T> findNodeToReplace(Node<T> root) {
+		Node<T> minValueNode = root;
 		while (root.left != null) {
-			minValue = root.left.value;
+			minValueNode = root.left;
 			root = root.left;
 		}
-		return minValue;
+		return minValueNode;
 	}
 
 	private int compare(T insertValue, T nodeValue) {
@@ -143,7 +161,7 @@ public class AVLTree<T extends Comparable<T>> {
 	public T getRight() {
 		return root.right.value;
 	}
-	
+
 	public void printTree() {
 		Queue<String> queue = new LinkedList<>();
 		Queue<Node<T>> treeTraversalQueue = new LinkedList<>();
@@ -160,12 +178,10 @@ public class AVLTree<T extends Comparable<T>> {
 			}
 		}
 
-		while(!queue.isEmpty()) {
+		while (!queue.isEmpty()) {
 			System.out.print(queue.remove());
 		}
 
 	}
-
-	
 
 }
