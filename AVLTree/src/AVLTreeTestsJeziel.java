@@ -50,6 +50,8 @@ class AVLTreeTestsJeziel {
 		assertTrue(curTree.search(43) == 43);
 		assertTrue(curTree.search(82) == 82);
 		assertTrue(curTree.search(81) == 81);
+		
+		curTree.printTree();
 
 	}
 
