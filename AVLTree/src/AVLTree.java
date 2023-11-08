@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class AVLTree<T extends Comparable<T>>  {
@@ -243,7 +244,24 @@ public class AVLTree<T extends Comparable<T>>  {
 	}
 	
 	public void printTree() {
-		
+		Queue<String> queue = new LinkedList<>();
+		Queue<Node<T>> treeTraversalQueue = new LinkedList<>();
+		treeTraversalQueue.add(root);
+
+		while (!treeTraversalQueue.isEmpty()) {
+			Node<T> curNode = treeTraversalQueue.remove();
+			queue.add(curNode.value.toString()+ " ");
+			if (curNode.left != null) {
+				treeTraversalQueue.add(curNode.left);
+			}
+			if (curNode.right != null) {
+				treeTraversalQueue.add(curNode.right);
+			}
+		}
+
+		while (!queue.isEmpty()) {
+			System.out.print(queue.remove());
+		}
 	}
 	
 	
