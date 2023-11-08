@@ -27,20 +27,21 @@ public class AVLTree<T extends Comparable<T>>  {
 		
 		if(compareValue < 0) { // Go left
 			root.left = insertHelper(root.left, value);
-			root.weight += -1; // More left heavy
 		}
 		else { // Go right
 			 root.right = insertHelper(root.right, value);
-			 root.weight += 1; // More right heavy
 		}
 		
 		// Check if rotate is required as you come back up
+		root.weight = recalcWeightOfNode(root);
+		
 		if (root.weight >= 2) {
 			root = rotateLeft(root);
 		} else if (root.weight <= -2) {
 			root = rotateRight(root);
 		}
 		
+		root.height = recalcHeightOfNode(root);
 		return root;
 	}
 	
@@ -78,14 +79,8 @@ public class AVLTree<T extends Comparable<T>>  {
 		origin.right = newOrigin.left;
 		newOrigin.left = origin;
 		
-		if (newOrigin.weight == 0) { // If the new origin was balanced before, it isn't anymore
-			origin.weight = -1;
-			newOrigin.weight = 1;
-		} else {
-			origin.weight = 0;
-			newOrigin.weight = 0;
-		}
-		
+		origin.height = recalcHeightOfNode(origin);
+		newOrigin.height = recalcHeightOfNode(newOrigin);
 		return newOrigin;
 	}
 	
@@ -109,14 +104,8 @@ public class AVLTree<T extends Comparable<T>>  {
 		origin.left = newOrigin.right;
 		newOrigin.right = origin;
 		
-		if (newOrigin.weight == 0) { // If the new origin was balanced before, it isn't anymore
-			origin.weight = -1;
-			newOrigin.weight = 1;
-		} else {
-			origin.weight = 0;
-			newOrigin.weight = 0;
-		}
-		
+		origin.height = recalcHeightOfNode(origin);
+		newOrigin.height = recalcHeightOfNode(newOrigin);
 		return newOrigin;
 	}
 	
@@ -236,10 +225,21 @@ public class AVLTree<T extends Comparable<T>>  {
 		return root.right.value;
 	}
 	
-	public int heightOfTree(Node<T> curr) { // Is there any fucking trick I can use to make this run better?
-		int rightHeight = (curr.right != null) ? heightOfTree(curr.right) : -1;
-		int leftHeight = (curr.left != null) ? heightOfTree(curr.left) : -1;
+	private int recalcHeightOfNode(Node<T> curr) {
+		int rightHeight = (curr.right != null) ? curr.right.height : -1;
+		int leftHeight = (curr.left != null) ? curr.left.height : -1;
 		return (rightHeight > leftHeight) ? rightHeight + 1 : leftHeight + 1;
+	}
+	
+	private int recalcWeightOfNode(Node<T> root) {
+		root.height = 0;
+		if (root.right != null) {
+			root.weight += root.right.height;
+		}
+		if (root.left != null) {
+			root.weight -= root.left.height;
+		}
+		return root.height;
 	}
 	
 	public void printTree() {
