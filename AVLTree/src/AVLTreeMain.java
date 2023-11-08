@@ -40,14 +40,20 @@ public class AVLTreeMain {
 		System.out.println("After Inserting:");
 		newAvlTree.printTree();
 		newAvlTree.deleteValue(4);
+		System.out.println();
 		newAvlTree.printTree();
 		newAvlTree.deleteValue(8);
+		System.out.println();
 		newAvlTree.printTree();
+		
 		newAvlTree.insert(10);
+		System.out.println();
 		newAvlTree.printTree();
 		newAvlTree.deleteValue(20);
+		System.out.println();
 		newAvlTree.printTree();
 		newAvlTree.insert(11);
+		System.out.println();
 		newAvlTree.printTree();
 	}
 }
