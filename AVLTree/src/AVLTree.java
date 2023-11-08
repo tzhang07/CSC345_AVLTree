@@ -166,21 +166,24 @@ public class AVLTree<T extends Comparable<T>> {
 		Queue<String> queue = new LinkedList<>();
 		Queue<Node<T>> treeTraversalQueue = new LinkedList<>();
 		treeTraversalQueue.add(root);
-
+		System.out.print(root.value + " ");
 		while (!treeTraversalQueue.isEmpty()) {
 			Node<T> curNode = treeTraversalQueue.remove();
 			queue.add(curNode.toString());
 			if (curNode.left != null) {
 				treeTraversalQueue.add(curNode.left);
+				System.out.print(curNode.left.value + " ");
 			}
 			if (curNode.right != null) {
 				treeTraversalQueue.add(curNode.right);
+				System.out.print(curNode.right.value + " ");
 			}
 		}
-
+		System.out.println();
 		while (!queue.isEmpty()) {
-			System.out.print(queue.remove());
+			System.out.println(queue.remove());
 		}
+		
 
 	}
 
