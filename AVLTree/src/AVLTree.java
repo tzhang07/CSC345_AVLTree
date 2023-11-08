@@ -169,7 +169,7 @@ public class AVLTree<T extends Comparable<T>> {
 		System.out.print(root.value + " ");
 		while (!treeTraversalQueue.isEmpty()) {
 			Node<T> curNode = treeTraversalQueue.remove();
-			queue.add(curNode.value.toString());
+			queue.add(curNode.value.toString()+ " ");
 			if (curNode.left != null) {
 				treeTraversalQueue.add(curNode.left);
 				System.out.print(curNode.left.value + " ");
