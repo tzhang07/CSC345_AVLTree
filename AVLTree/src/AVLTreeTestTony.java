@@ -34,7 +34,7 @@ class AVLTreeTestTony {
 			newAvlTree.insert(i);
 		}
 		
-		
+	
 		for(int i = 0; i < 10; i++) {
 			System.out.print("Attempting to delete: " + i);
 			newAvlTree.deleteValue(i);
