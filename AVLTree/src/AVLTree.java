@@ -246,14 +246,14 @@ public class AVLTree<T extends Comparable<T>>  {
 	}
 	
 	private int recalcWeightOfNode(Node<T> root) {
-		root.height = 0;
+		root.weight = 0;
 		if (root.right != null) {
-			root.weight += root.right.height;
+			root.weight += (root.right.height+1);
 		}
 		if (root.left != null) {
-			root.weight -= root.left.height;
+			root.weight -= (root.left.height+1);
 		}
-		return root.height;
+		return root.weight;
 	}
 	
 	public void printTree() {
@@ -277,5 +277,20 @@ public class AVLTree<T extends Comparable<T>>  {
 		}
 	}
 	
+	// FOR TESTING PURPOSES ONLY
+	public int getLeftHeight() {
+		if (root.left == null) {
+			return 0;
+		}
+		return root.left.height;
+	}
+	
+	// FOR TESTING PURPOSES ONLY
+	public int getRightHeight() {
+		if (root.right == null) {
+			return 0;
+		}
+		return root.right.height;
+	}
 	
 }
