@@ -64,19 +64,20 @@ public class AVLTreeMain {
 		newAvlTree.insert(5);
 		newAvlTree.insert(2);
 		newAvlTree.insert(6);
+		System.out.println("Expected:\n5 2 6\nActual:"); // should print 5 2 6
 		newAvlTree.printTree(); // 5 with 2 children: L: 2 R: 6
-		System.out.println(); // should print 5 2 6
 		newAvlTree.insert(7);
 		newAvlTree.insert(8);
+		System.out.println("\n\nExpected:\n5 2 7 6 8 \nActual:");
 		newAvlTree.printTree(); // should print 5 2 7 6 8
 		newAvlTree.insert(9);
-		System.out.println();
+		System.out.println("\n\nExpected:\n7 5 8 2 6 9 \nActual:");
 		newAvlTree.printTree(); // should print 7 5 8 2 6 9
 		newAvlTree.insert(1);
-		System.out.println();
+		System.out.println("\n\nExpected:\n7 5 8 2 6 9 1 \nActual:");
 		newAvlTree.printTree(); // should print 7 5 8 2 6 9 1
 		newAvlTree.insert(11);
-		System.out.println();
+		System.out.println("\n\nExpected:\n7 5 9 2 6 8 11 1\nActual:");
 		newAvlTree.printTree(); // should print 7 5 9 2 6 8 11 1
 	}
 }
