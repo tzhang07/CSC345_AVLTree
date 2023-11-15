@@ -69,6 +69,15 @@ public class AVLTreeMain {
 		newAvlTree.insert(7);
 		newAvlTree.insert(8);
 		newAvlTree.printTree(); // should print 5 2 7 6 8
+		newAvlTree.insert(9);
+		System.out.println();
+		newAvlTree.printTree(); // should print 7 5 8 2 6 9
+		newAvlTree.insert(1);
+		System.out.println();
+		newAvlTree.printTree(); // should print 7 5 8 2 6 9 1
+		newAvlTree.insert(11);
+		System.out.println();
+		newAvlTree.printTree(); // should print 7 5 9 2 6 8 11 1
 	}
 }
 
