@@ -276,7 +276,7 @@ public class AVLTree<T extends Comparable<T>>  {
 			System.out.print(queue.remove());
 		}
 	}
-	
+
 	// FOR TESTING PURPOSES ONLY
 	public int getLeftHeight() {
 		if (root.left == null) {
