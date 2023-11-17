@@ -10,6 +10,14 @@ public class AVLTreeMain {
 		String makeTree = "m";
 		String treeType = null;
 		if(tests.compareTo(s.toLowerCase()) == 0) {
+			/**
+			 * 
+			 * 
+			 * 
+			 * PLEASE PUT ALL THE PRE-MADE TEST CASES HERE!!!!
+			 * 
+			 * 
+			 */
 			buildSmallTree1();
 			buildBigTree2();
 			testDelete();
@@ -188,7 +196,6 @@ public class AVLTreeMain {
 		System.out.println("\nPrinting out final tree:");
 		newAvlTree.printTree();
 		System.out.println("\n===============================================");
-
 	}
 }
 
