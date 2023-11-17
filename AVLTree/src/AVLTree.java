@@ -29,8 +29,10 @@ public class AVLTree<T extends Comparable<T>>  {
 		if(compareValue < 0) { // Go left
 			root.left = insertHelper(root.left, value);
 		}
-		else { // Go right
+		else if(compareValue== 1){ // Go right
 			 root.right = insertHelper(root.right, value);
+		}else {
+			root.quantity++;
 		}
 		
 		// Check if rotate is required as you come back up
@@ -181,25 +183,31 @@ public class AVLTree<T extends Comparable<T>>  {
 			root.right = deleteHelper(root.right, value);
 			return root;
 		}
-
-		// Case 1: When node is a leaf
-		if (root.left == null && root.right == null) {
+		
+		// Case 1: the quantity is greater than 1 (dupes)
+		if(root.quantity > 1) {
+			root.quantity--;
+		}
+		
+		// Case 2: The node is a leaf
+		if(root.left == null && root.right ==null) {
 			root = null;
 			return root;
 		}
-
-		// Case 2: When the node has 1 children
-		if (root.left == null) {
-			root = root.right;
-			size = size - 1;
-			return root;
-		} else if (root.right == null) {
+		
+		// Case 3: The node only has 1 child
+		if(root.right == null && root.left != null) {
 			root = root.left;
-			size = size - 1;
-			return root;
-		} else {
+			size--;
+		}else if(root.left == null && root.right != null) {
+			root = root.right;
+			size--;
+		}
+		
+		// Case 4: The node has both children
 
-			// Case 3: When Node has both children
+		else {
+
 			root.value = findNodeToReplace(root.right).value;
 
 			root.right = deleteHelper(root.right, root.value);
@@ -207,10 +215,18 @@ public class AVLTree<T extends Comparable<T>>  {
 			return root;
 		}
 
-		// TODO:
-		// Balancing/Rotating and updating the weight
-
-//		return root;
+		
+		root.height = recalcHeightOfNode(root);
+		root.weight = recalcWeightOfNode(root);
+		
+		if(root.weight >= 2) {
+			root = rotateLeft(root);
+		}else if(root.weight <= 2) {
+			root = rotateRight(root);
+		}
+		
+		
+		return root;
 	}
 
 	private Node<T> findNodeToReplace(Node<T> root) {
