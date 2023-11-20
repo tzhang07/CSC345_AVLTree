@@ -159,7 +159,7 @@ public class AVLTree<T extends Comparable<T>> {
 			return null;
 		}
 
-		while (tempNode.right != null) {   
+		while (tempNode.right != null) {
 			tempNode = tempNode.right;
 		}
 		return tempNode.value;
@@ -174,7 +174,7 @@ public class AVLTree<T extends Comparable<T>> {
 			return root;
 		}
 
-		if (compare(value, root.value) < 0) { 
+		if (compare(value, root.value) < 0) {
 			root.left = deleteHelper(root.left, value);
 			return root;
 		} else if (compare(value, root.value) > 0) {
@@ -183,23 +183,22 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 
 		// Case 1: the quantity is greater than 1 (dupes)
-		if (root.quantity > 1) {
+		else if (root.quantity > 1) {
 			root.quantity--;
 			System.out.print("Quantity of a node has been reduced\n");
 			return root;
 		}
 
 		// Case 2: The node is a leaf
-		if (root.left == null && root.right == null) {
+		else if (root.left == null && root.right == null) {
 			root = null;
 			size--;
 			return root;
-			
-			
+
 		}
 
 		// Case 3: The node only has 1 child
-		if (root.right == null && root.left != null) {
+		else if (root.right == null && root.left != null) {
 			root = root.left;
 			size--;
 		} else if (root.left == null && root.right != null) {
@@ -228,7 +227,6 @@ public class AVLTree<T extends Comparable<T>> {
 		return root;
 	}
 
-	
 	private Node<T> findNodeToReplace(Node<T> root) {
 		Node<T> minValueNode = root;
 		while (root.left != null) {
@@ -274,8 +272,9 @@ public class AVLTree<T extends Comparable<T>> {
 	public void printTree() {
 		Queue<String> queue = new LinkedList<>();
 		Queue<Node<T>> treeTraversalQueue = new LinkedList<>();
-		if(root!= null) {
-		treeTraversalQueue.add(root);}
+		if (root != null) {
+			treeTraversalQueue.add(root);
+		}
 
 		while (!treeTraversalQueue.isEmpty()) {
 			Node<T> curNode = treeTraversalQueue.remove();
