@@ -48,7 +48,6 @@ class AVLTreeTest {
 	
 	@Test
 	void deleteTest() {
-		fail("Not yet implemented");
 		Random rand = new Random();
 		HashSet<Integer> numbers = new HashSet<>();
 		AVLTree<Integer> currTree = new AVLTree<>();
@@ -59,9 +58,18 @@ class AVLTreeTest {
 			}
 		}
 		
+		int size = currTree.getSize();
 		for (int n : numbers) {
+			currTree.printTree();
 			currTree.deleteValue(n);
+			size--;
+			//numbers.remove(n);
 			assertTrue(currTree.search(n) == null);
+			int heightDiff = currTree.getLeftHeight() - currTree.getRightHeight();
+			assertTrue(heightDiff > -2);
+			assertTrue(heightDiff < 2);
+			System.out.println("Current size is " + currTree.getSize() + "\nActual should be " + size);
+			assertTrue(currTree.getSize() == size);
 		}
 	}
 	
