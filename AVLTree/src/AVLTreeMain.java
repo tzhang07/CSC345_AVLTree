@@ -24,6 +24,7 @@ public class AVLTreeMain {
 			testDelete2();
 			testDelete3();
 			testDelete4();
+			delete25Nodes();
 		}
 		else if(makeTree.compareTo(s.toLowerCase()) == 0) {
 			String quit = "quit";
@@ -329,5 +330,32 @@ public class AVLTreeMain {
 		System.out.println("\n===============================================");
 	}
 	
+	private static void delete25Nodes() {
+		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
+		System.out.println("===============================================");
+		System.out.println("TESTING BIG TREE WITH 26 NODES");
+		for(int i = 0; i < 26; i++) {
+			newAvlTree.insert(i);
+			if(i > 0 && i % 2 == 0) {
+				System.out.println("\nPrinting Tree after inserting: " + i + " nodes:");
+				newAvlTree.printTree();
+				System.out.println();
+			}
+		}
+		System.out.println("\nPrinting out final tree before deleting:");
+		newAvlTree.printTree();
+		
+		for(int i = 0; i < 26; i++) {
+			newAvlTree.deleteValue(i);
+			if(newAvlTree.getSize() % 2 == 0 && newAvlTree.getSize() > 0) {
+				System.out.println("\nPrinting tree if size is even:");
+				newAvlTree.printTree();
+				System.out.println();
+			}
+		}
+		System.out.println("\nPrinting tree after deleting:");
+		newAvlTree.printTree();
+		System.out.println("\n===============================================");
+	}
 }
 
