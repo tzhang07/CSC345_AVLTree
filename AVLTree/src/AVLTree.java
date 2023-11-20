@@ -176,24 +176,20 @@ public class AVLTree<T extends Comparable<T>> {
 
 		if (compare(value, root.value) < 0) {
 			root.left = deleteHelper(root.left, value);
-			return root;
 		} else if (compare(value, root.value) > 0) {
 			root.right = deleteHelper(root.right, value);
-			return root;
 		}
 
 		// Case 1: the quantity is greater than 1 (dupes)
 		else if (root.quantity > 1) {
 			root.quantity--;
 			System.out.print("Quantity of a node has been reduced\n");
-			return root;
 		}
 
 		// Case 2: The node is a leaf
 		else if (root.left == null && root.right == null) {
 			root = null;
 			size--;
-			return root;
 
 		}
 
@@ -212,6 +208,10 @@ public class AVLTree<T extends Comparable<T>> {
 
 			root.value = findNodeToReplace(root.right).value;
 			root.right = deleteHelper(root.right, root.value);
+			return root;
+		}
+		
+		if(root == null) {
 			return root;
 		}
 
