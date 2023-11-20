@@ -72,6 +72,8 @@ public class AVLTree<T extends Comparable<T>> {
 			return null; // I shouldn't reach this
 		}
 
+		root.right.height = recalcHeightOfNode(root.right);
+		root.right.weight = recalcWeightOfNode(root.right);
 		if (root.right.weight == -1) {
 			root.right = rotateRight(root.right); // Only in the event that the right needs to be rotated to keep
 													// balance too
@@ -99,6 +101,8 @@ public class AVLTree<T extends Comparable<T>> {
 			return null; // I shouldn't reach this
 		}
 
+		root.left.height = recalcHeightOfNode(root.left);
+		root.left.weight = recalcWeightOfNode(root.left);
 		if (root.left.weight == 1) {
 			root.left = rotateLeft(root.left); // Only in the event that the left needs to be rotated to keep balance
 												// too
@@ -208,7 +212,6 @@ public class AVLTree<T extends Comparable<T>> {
 
 			root.value = findNodeToReplace(root.right).value;
 			root.right = deleteHelper(root.right, root.value);
-			return root;
 		}
 		
 		if(root == null) {
@@ -306,6 +309,10 @@ public class AVLTree<T extends Comparable<T>> {
 			return 0;
 		}
 		return root.right.height;
+	}
+	
+	public boolean isEmpty() {
+		return size == 0;
 	}
 
 }

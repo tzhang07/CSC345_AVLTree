@@ -61,14 +61,16 @@ class AVLTreeTest {
 		int size = currTree.getSize();
 		for (int n : numbers) {
 			currTree.printTree();
+			System.out.println("\nCurrent size is " + currTree.getSize() + "\nActual should be " + size);
 			currTree.deleteValue(n);
 			size--;
 			//numbers.remove(n);
 			assertTrue(currTree.search(n) == null);
-			int heightDiff = currTree.getLeftHeight() - currTree.getRightHeight();
-			assertTrue(heightDiff > -2);
-			assertTrue(heightDiff < 2);
-			System.out.println("Current size is " + currTree.getSize() + "\nActual should be " + size);
+			if (!currTree.isEmpty()) {
+				int heightDiff = currTree.getLeftHeight() - currTree.getRightHeight();
+				assertTrue(heightDiff > -2);
+				assertTrue(heightDiff < 2);
+			}
 			assertTrue(currTree.getSize() == size);
 		}
 	}
