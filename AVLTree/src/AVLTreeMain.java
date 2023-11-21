@@ -18,13 +18,14 @@ public class AVLTreeMain {
 			 * 
 			 * 
 			 */
-			buildSmallTree1();
-			buildBigTree2();
-			testDelete();
-			testDelete2();
-			testDelete3();
-			testDelete4();
-			delete25Nodes();
+//			buildSmallTree1();
+//			buildBigTree2();
+//			testDelete();
+//			testDelete2();
+//			testDelete3();
+//			testDelete4();
+//			delete25Nodes();
+			randomTest();
 		}
 		else if(makeTree.compareTo(s.toLowerCase()) == 0) {
 			String quit = "quit";
@@ -356,6 +357,15 @@ public class AVLTreeMain {
 		System.out.println("\nPrinting tree after deleting:");
 		newAvlTree.printTree();
 		System.out.println("\n===============================================");
+	}
+	
+	private static void randomTest() {
+		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
+		for(int i = 0; i < 25; i++) {
+			int randVal = (int) (Math.random() * 25 + 1);
+			newAvlTree.insert(randVal);
+		}
+		newAvlTree.printTree();
 	}
 }
 
