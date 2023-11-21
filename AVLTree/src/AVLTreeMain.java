@@ -18,13 +18,13 @@ public class AVLTreeMain {
 			 * 
 			 * 
 			 */
-//			buildSmallTree1();
-//			buildBigTree2();
-//			testDelete();
-//			testDelete2();
-//			testDelete3();
-//			testDelete4();
-//			delete25Nodes();
+			buildSmallTree1();
+			buildBigTree2();
+			testDelete();
+			testDelete2();
+			testDelete3();
+			testDelete4();
+			delete25Nodes();
 			randomTest();
 		}
 		else if(makeTree.compareTo(s.toLowerCase()) == 0) {
@@ -101,7 +101,9 @@ public class AVLTreeMain {
 		}
 }
 	
-	
+	/**
+	 * Test delete!!
+	 */
 	private static void testDelete() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("===============================================");
@@ -137,6 +139,9 @@ public class AVLTreeMain {
 
 	}
 	
+	/**
+	 * Second test of delete
+	 */
 	private static void testDelete2() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("===============================================");
@@ -158,7 +163,9 @@ public class AVLTreeMain {
 		System.out.println("\n===============================================");
 	}
 	
-	
+	/**
+	 * Third test of delete
+	 */
 	private static void testDelete3() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("\n===============================================");
@@ -188,6 +195,9 @@ public class AVLTreeMain {
 		System.out.println("\n===============================================");
 	}
 	
+	/**
+	 * Fourth test of delete
+	 */
 	private static void testDelete4() {
 		AVLTree<Integer> avlTree = new AVLTree<>();
 
@@ -288,6 +298,9 @@ public class AVLTreeMain {
 		newAvlTree.printTree();
 	}
 	
+	/**
+	 * Builds a "small tree"
+	 */
 	private static void buildSmallTree1() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("===============================================");
@@ -314,6 +327,9 @@ public class AVLTreeMain {
 
 	}
 	
+	/**
+	 * Builds a big tree with 25 nodes
+	 */
 	private static void buildBigTree2() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("===============================================");
@@ -331,6 +347,9 @@ public class AVLTreeMain {
 		System.out.println("\n===============================================");
 	}
 	
+	/**
+	 * Builds and delete the nodes
+	 */
 	private static void delete25Nodes() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		System.out.println("===============================================");
@@ -359,6 +378,9 @@ public class AVLTreeMain {
 		System.out.println("\n===============================================");
 	}
 	
+	/**
+	 * Randomly inserting tree
+	 */
 	private static void randomTest() {
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		for(int i = 0; i < 25; i++) {
