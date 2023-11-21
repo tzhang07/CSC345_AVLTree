@@ -4,21 +4,38 @@ import java.util.Queue;
 public class AVLTree<T extends Comparable<T>> {
 	private Node<T> root;
 	private int size;
-
+	
+	/**
+	 * Default Constructor
+	 */
 	public AVLTree() {
 		this.root = null;
 		size = 0;
 	}
-
+	
+	/**
+	 * Constructor if given the root
+	 * @param root the root of the tree
+	 */
 	public AVLTree(Node<T> root) {
 		this.root = root;
 		size = 1;
 	}
-
+	
+	/**
+	 * Will insert value to the tree
+	 * @param value the value to be inserted
+	 */
 	public void insert(T value) {
 		root = insertHelper(root, value);
 	}
-
+	
+	/**
+	 * This will insert a value 
+	 * @param root the root of the tree
+	 * @param value the value to be inserted
+	 * @return root or null 
+	 */
 	private Node<T> insertHelper(Node<T> root, T value) {
 		if (root == null) {
 			root = new Node<T>(value);
@@ -119,12 +136,21 @@ public class AVLTree<T extends Comparable<T>> {
 		return newOrigin;
 	}
 
-	// searching for a specific value
+	/**
+	 * Searches for a specific value
+	 * @param value the value to be searched for
+	 * @return the value that the user want
+	 */
 	public T search(T value) {
 		return searchHelper(root, value);
 	}
 
-	// returns null if not found
+	/**
+	 * This is the main search for the tree
+	 * @param root the root
+	 * @param value the value to search for 
+	 * @return the value if found, null if not
+	 */
 	private T searchHelper(Node<T> root, T value) {
 		Node<T> tempRoot = root;
 
@@ -144,7 +170,11 @@ public class AVLTree<T extends Comparable<T>> {
 
 		return null;
 	}
-
+	
+	/**
+	 * Finds the minimum of the tree
+	 * @return the minimum value
+	 */
 	public T getMin() {
 		Node<T> tempNode = root;
 		if (tempNode == null) {
@@ -156,7 +186,11 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 		return tempNode.value;
 	}
-
+	
+	/**
+	 * Returns the max of the tree
+	 * @return the maximum value
+	 */
 	public T getMax() {
 		Node<T> tempNode = root;
 		if (tempNode == null) {
@@ -229,7 +263,12 @@ public class AVLTree<T extends Comparable<T>> {
 
 		return root;
 	}
-
+	
+	/**
+	 * Finds the node to be replaced. Helper for delete
+	 * @param root the node to be searched at
+	 * @return value of the node 
+	 */
 	private Node<T> findNodeToReplace(Node<T> root) {
 		Node<T> minValueNode = root;
 		while (root.left != null) {
@@ -238,29 +277,57 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 		return minValueNode;
 	}
-
+	
+	/**
+	 * Compares the values returns -1 if less, 0 if equals and 1 if greater
+	 * @param insertValue the value to check
+	 * @param nodeValue the value at location
+	 * @return -1, 0, or 1 if less, equals, or greater
+	 */
 	private int compare(T insertValue, T nodeValue) {
 		return insertValue.compareTo(nodeValue);
 	}
 
+	/**
+	 * Gets the size of the tree (# of nodes)
+	 * @return the size of the tree
+	 */
 	public int getSize() {
 		return size;
 	}
 
+	/**
+	 * Gets the left value of the root
+	 * @return the left value of the root
+	 */
 	public T getLeft() {
 		return root.left.value;
 	}
 
+	/**
+	 * Gets the right value of the root
+	 * @return the right value of the root
+	 */
 	public T getRight() {
 		return root.right.value;
 	}
 
+	/**
+	 * Recalculates height of the node
+	 * @param curr the current node that is is given
+	 * @return the current node's heights
+	 */
 	private int recalcHeightOfNode(Node<T> curr) {
 		int rightHeight = (curr.right != null) ? curr.right.height : -1;
 		int leftHeight = (curr.left != null) ? curr.left.height : -1;
 		return (rightHeight > leftHeight) ? rightHeight + 1 : leftHeight + 1;
 	}
-
+	
+	/**
+	 * Calculates the weights of the root given
+	 * @param root the node that is given to be calculated
+	 * @return the weight 
+	 */
 	private int recalcWeightOfNode(Node<T> root) {
 		root.weight = 0;
 		if (root.right != null) {
@@ -311,6 +378,10 @@ public class AVLTree<T extends Comparable<T>> {
 		return root.right.height;
 	}
 	
+	/**
+	 * Checks to see if tree is empty
+	 * @return a boolean to see if tree is empty of not
+	 */
 	public boolean isEmpty() {
 		return size == 0;
 	}
