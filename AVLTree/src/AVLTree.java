@@ -33,7 +33,7 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * This will insert a value
+	 * This will insert a value into the tree
 	 * 
 	 * @param root  the root of the tree
 	 * @param value the value to be inserted
@@ -69,7 +69,8 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/*
-	 * Rotate Notes - Nathan Mette Lets look at rotation again. All I really need to
+	 * Rotate Notes - Nathan Mette 
+	 * Lets look at rotation again. All I really need to
 	 * do is take the two nodes and swap them around, specifically if that wont
 	 * cause any errors, such as the rotation causing the new root to have two left
 	 * children
@@ -80,12 +81,15 @@ public class AVLTree<T extends Comparable<T>> {
 	 * When root.weight == -2: - if root.left.weight <= 0 -> rightRotation - if
 	 * root.left.weight == 1 -> leftRotation on root.left, rightRotation on root
 	 */
-
-	/*
+	
+	/**
 	 * Rotates the tree from root to the left Returns the new root. *****NOTE:
 	 * REMEMBER TO SET THE PARENT OF THE RETURN OF THIS METHOD TO THE PARENT OF THE
 	 * NODE YOU PASSED***** Assumes Node passed is the root of the tree being
 	 * rotated.
+	 * 
+	 * @param root  represents the root of the subtree that is being rotated
+	 * @return the new root
 	 */
 	private Node<T> rotateLeft(Node<T> root) {
 		if (root.right == null) {
@@ -110,11 +114,14 @@ public class AVLTree<T extends Comparable<T>> {
 		return newOrigin;
 	}
 
-	/*
+	/**
 	 * Rotates the tree from root to the right Returns the new root. *****NOTE:
 	 * REMEMBER TO SET THE PARENT OF THE RETURN OF THIS METHOD TO THE PARENT OF THE
 	 * NODE YOU PASSED***** Assumes Node passed is the root of the tree being
 	 * rotated.
+	 * 
+	 * @param root  represents the root of the subtree being rotated
+	 * @return the new root of the subtree
 	 */
 	private Node<T> rotateRight(Node<T> root) {
 		if (root.left == null) {
