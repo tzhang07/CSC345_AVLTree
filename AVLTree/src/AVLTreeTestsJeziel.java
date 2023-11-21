@@ -1,3 +1,9 @@
+/*
+ * Author: Jeziel Banos Gonzalez
+ * Description: File contains a few general tests for the AVL tree methods.
+ * This file was created at the start of the development process so it only tests 
+ * a few select cases
+ */
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
@@ -9,6 +15,8 @@ class AVLTreeTestsJeziel {
 
 	@Test
 	void checkInserts() {
+		// checks that insert is actually adding to the tree, but does not check for 
+		// correct rotations, rotations was not implemented at time of writing
 		AVLTree<Integer> curTree = new AVLTree<>();
 		assertTrue(curTree.getSize() == 0);
 
@@ -33,7 +41,7 @@ class AVLTreeTestsJeziel {
 	@Test
 	void searchInnerNode() {
 		// {4, 58, 40, 43, 82, 81, 32, 25, 38, 62}
-
+		// testing the search method of the tree to ensure it can find nodes that exists
 		AVLTree<Integer> curTree = new AVLTree<>();
 
 		curTree.insert(4);
@@ -58,7 +66,7 @@ class AVLTreeTestsJeziel {
 	@Test
 	void searchLeaf() {
 		// {5,2,6,8,10, 3, 4}
-
+		// checking we can search for leafs
 		AVLTree<Integer> curTree = new AVLTree<>();
 
 		curTree.insert(5);
@@ -77,6 +85,7 @@ class AVLTreeTestsJeziel {
 	@Test
 	void checkDeletes() {
 		// {5,2,6,8,10, 3, 4}
+		// checks if delete is functioning correctly and only deleting one node, and not its children as well
 		AVLTree<Integer> curTree = new AVLTree<>();
 
 		curTree.insert(5);

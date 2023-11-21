@@ -1,3 +1,11 @@
+
+/*
+ * Author: Jeziel Banos Gonzalez
+ * Description: file contains tests for the delete method of the AVL Tree
+ * One of the tests uses randomized numbers so feel free to run multiple time
+ * to ensure behavior of method is correct.
+ * 
+ */
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +31,7 @@ public class deleteTests {
 
 		int[] arr = new int[] { 15, 55, 21, 28, 100, 200, 300, 53, 10 };
 		assertTrue(newAvlTree.getSize() == 9);
-
+		// deleting all nodes
 		for (int i = 0; i < 9; i++) {
 			System.out.print("Trying to delete:");
 			System.out.print(arr[i]);
@@ -40,22 +48,22 @@ public class deleteTests {
 		}
 
 	}
-	
+
 	@Test
 	void randomValsTest() {
 		Random rand = new Random();
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 
-		
+		// used for deleting all values in the tree later
 		ArrayList<Integer> arr = new ArrayList<>();
-		for(int i = 0; i < 100; i++) {
+		for (int i = 0; i < 100; i++) {
 			int toAdd = rand.nextInt(20);
 			arr.add(toAdd);
 			newAvlTree.insert(toAdd);
 		}
 		newAvlTree.printTree();
 		System.out.print("\n");
-		
+		// deleting all values in the tree
 		for (int i = 0; i < arr.size(); i++) {
 			System.out.print("Trying to delete:");
 			System.out.print(arr.get(i));
@@ -70,8 +78,6 @@ public class deleteTests {
 
 		}
 
-		
-		
 	}
 
 }
