@@ -129,6 +129,10 @@ This is the main file in which you should run. You can choose to run either:
   - Pre-made test cases
   - Make your own AVLTree with inserts.
 You can use and check the pre-made test cases by running and pressing T or t, they are not case-sensitive.
+If you choose to manually make the tree, input "M" or m in order to start.
+After that, users need to choose to either insert or delete nodes from the tree. "I" for insert and "D" for delete.
+Once a command is inputted, users can now insert or delete the nodes that they want.
+Once "quit" is inputted, it will print out the AVL tree and user's can draw the tree themselves.
 
 If you choose the make your own AVLTree, you can choose either an AVLTree of Ints or Strings. Once a choice has been made, you can freely insert by pressing I or i, not case-sensitive and once finished, you can type "quit" in order to see the tree that you have made. 
 
