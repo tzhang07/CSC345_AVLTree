@@ -33,6 +33,9 @@ public class AVLTreeMain {
 			AVLTree<String> avlSTree = null;
 			boolean hasQuit = false;
 			boolean correctInput = false;
+			/**
+			 * This while loop will grab the user's input and make the tree based on the user's input.
+			 */
 			while(!correctInput) {
 				System.out.println("What tree would you like to build?\nTree of Strings: S\nTree of Ints: I");
 				treeType = scan.nextLine();
@@ -54,12 +57,18 @@ public class AVLTreeMain {
 				}
 			}
 			
+			/**
+			 * This will run until the user inputs quit.
+			 */
 			while(!hasQuit) {
 				if(avlITree != null && treeType.toLowerCase().compareTo("i") == 0) {
-					System.out.println("Please input an int. Type \"Quit\" or \"quit\" to see end result.");
+					System.out.println("\nType \"Quit\" or \"quit\" to see end result.");
+					System.out.println("Please press i for insert, d for delete:");
+
 				}
 				else {
-					System.out.println("Please input a string: Type \"Quit\" or \"quit\" to see end result.");
+					System.out.println("\nType \"Quit\" or \"quit\" to see end result.");
+					System.out.println("Please press i for insert, d for delete:");
 				}
 				String input = scan.nextLine();
 				if(input.toLowerCase().compareTo(quit) == 0) {
@@ -67,32 +76,89 @@ public class AVLTreeMain {
 					System.out.println("Exiting.");
 					break;
 				}
+				/**
+				 * Checks to see what tree type it is.
+				 */
+				if(avlITree != null && treeType.toLowerCase().compareTo("i") == 0) {
+					/**
+					 * Delete
+					 */
+					if(input.toLowerCase().compareTo("d") == 0) {
+						System.out.println("Please input a number to delete from AVLTree");
+						String secondInput = scan.nextLine();
+						try {
+							if(avlITree.search(Integer.parseInt(secondInput)) == null) {
+								System.out.println(secondInput + " is not found within the AVLTree.");
+							}
+							avlITree.deleteValue(Integer.parseInt(secondInput));
+						} catch(NumberFormatException e) {
+							System.out.println("Input is not an int or does not exist. Please try again");
+							continue;
+						}
+					}
+					/**
+					 * Insert
+					 */
+					else if(input.toLowerCase().compareTo("i") == 0) {
+						System.out.println("Please input a number to insert to AVLTree");
+						String secondInput = scan.nextLine();
+						try {
+							avlITree.insert(Integer.parseInt(secondInput));
+						} catch(NumberFormatException e) {
+							System.out.println("Input is not an int. Please try again.");
+							continue;
+						}
+					}
+					/**
+					 * If user enters wrong input, not "i" or "d"
+					 */
+					else {
+						System.out.println("Wong Input.\nPlease choose either to insert or to delete. \"i\" to insert, and \"d\" to delete.");
+					}
+				}
+				/**
+				 * For the string avl tree
+				 */
+				else if(avlSTree != null && treeType.toLowerCase().compareTo("s") == 0) {
+					/**
+					 * Deleting
+					 */
+					if(input.toLowerCase().compareTo("d") == 0) {
+						System.out.println("Please input a string to delete from AVLTree");
+						String secondInput = scan.nextLine();
+						if(avlSTree.search(secondInput) == null) {
+							System.out.println(secondInput + " is not found within the AVLTree.");
+						}
+						avlSTree.deleteValue(secondInput);
+					}
+					/**
+					 * Inserting
+					 */
+					else if(input.toLowerCase().compareTo("i") == 0) {
+						System.out.println("Please input a string to insert to AVLTree");
+						String secondInput = scan.nextLine();
+						avlSTree.insert(secondInput);	
+					}
+					/**
+					 * If user does not use "i" or "d"
+					 */
+					else {
+						System.out.println("Wrong input.\nPlease choose either to insert or to delete. \"i\" to insert, and \"d\" to delete.");
+					}
+				}
 				
-				if(avlITree != null) {
-					try {
-						avlITree.insert(Integer.parseInt(input));
-						System.out.println("Inserting int: " + input + "\n");
-					}
-					catch(NumberFormatException e) { 
-						System.out.println("Input not an int. Did not insert the input.\n");
-						continue;
-					}
-				}
-				else if(avlSTree != null){
-					System.out.println("Inserting String: " + input + "\n");
-					avlSTree.insert(input);
-				}
+				
 			}
 			if(avlITree != null && avlITree.getSize() > 0) {
 				System.out.println("Tree: ");
 				avlITree.printTree();
 			}
-			else if(avlSTree != null && avlITree.getSize() > 0) {
+			else if(avlSTree != null && avlSTree.getSize() > 0) {
 				System.out.println("Tree: ");
 				avlSTree.printTree();
 			}
 			else {
-				System.out.println("Did not make tree or did not insert any inputs.");
+				System.out.println("Did not make tree or did not insert any inputs, or tree is empty.");
 			}
 			scan.close();
 		}
@@ -382,12 +448,14 @@ public class AVLTreeMain {
 	 * Randomly inserting tree
 	 */
 	private static void randomTest() {
+		System.out.println("\n===============================================");
 		AVLTree<Integer> newAvlTree = new AVLTree<Integer>();
 		for(int i = 0; i < 25; i++) {
 			int randVal = (int) (Math.random() * 25 + 1);
 			newAvlTree.insert(randVal);
 		}
 		newAvlTree.printTree();
+		System.out.println("===============================================");
 	}
 }
 
